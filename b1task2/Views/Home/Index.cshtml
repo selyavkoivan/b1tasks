@@ -2,7 +2,63 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model IEnumerable<b1task2.Models.Balance.BalanceFile>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link link-dark text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Загрузить файл
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="m-0 p-0">
+                        <div class="mt-3">
+                            <div class="text-center mt-3">
+                                <label for="file" id="drop-area" class="col-12 p-5 border border-5 rounded">
+                                    <i class="fa fa-cloud-upload"></i> Выберите или перетащите файл ...
+                                </label>
+                                <input type="file" id="file" name="file" class="d-none" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed link-dark text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Загруженные файлы
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            @foreach (var balanceFile in Model)
+                            {
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-control">
+                                        <h3>@balanceFile.FileName</h3>
+
+                                        <a type="button" class="btn btn-outline-primary" href="Home/BalanceFile/@balanceFile.BalanceFileId">
+                                            Открыть
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

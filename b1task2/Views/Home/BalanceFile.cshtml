@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_Layout";
+}    
+
+@model b1task2.Models.Balance.BalanceFile
+
+<table>
+    <thead>
+    <tr>
+        <th rowspan="2">Б/сч</th>
+        <th colspan="2">ВХОДЯЩЕЕ САЛЬДО</th>
+        <th colspan="2">ОБОРОТЫ</th>
+        <th colspan="2">ИСХОДЯЩЕЕ САЛЬДО</th>
+    </tr>
+    <tr>
+        <th>Актив</th>
+        <th>Актив</th>
+        <th>Дебет</th>
+        <th>Кредит</th>
+        <th>Актив</th>
+        <th>Актив</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var balanceSheetClass in Model.BalanceSheetClasses)
+    {
+        <tr class="text-center m-auto">
+            <th colspan="7">@balanceSheetClass.ClassName</th>
+        </tr>
+        @foreach (var balanceLineBlock in balanceSheetClass.BalanceLineBlocks)
+        {
+            @foreach (var balanceLine in balanceLineBlock.BalanceLines)
+            {
+                <tr>
+                    <td>@balanceLine.BalanceLineNumber</td>
+                    <td>@balanceLine.OpeningBalanceAsset</td>
+                    <td>@balanceLine.OpeningBalanceLiability</td>
+                    <td>@balanceLine.TurnoverDebit</td>
+                    <td>@balanceLine.TurnoverCredit</td>
+                    <td>@balanceLine.ClosingBalanceAsset</td>
+                    <td>@balanceLine.ClosingBalanceLiability</td>
+                </tr>
+            }
+            <tr>
+                <th>@balanceLineBlock.BalanceLineBlockNumber</th>
+                <th>@balanceLineBlock.TotalOpeningBalanceAsset</th>
+                <th>@balanceLineBlock.TotalOpeningBalanceLiability</th>
+                <th>@balanceLineBlock.TotalTurnoverDebit</th>
+                <th>@balanceLineBlock.TotalTurnoverCredit</th>
+                <th>@balanceLineBlock.TotalClosingBalanceAsset</th>
+                <th>@balanceLineBlock.TotalClosingBalanceLiability</th>
+            </tr>
+        }
+        <tr>
+            <th>ПО КЛАССУ</th>
+            <th>@balanceSheetClass.TotalOpeningBalanceAsset</th>
+            <th>@balanceSheetClass.TotalOpeningBalanceLiability</th>
+            <th>@balanceSheetClass.TotalTurnoverDebit</th>
+            <th>@balanceSheetClass.TotalTurnoverCredit</th>
+            <th>@balanceSheetClass.TotalClosingBalanceAsset</th>
+            <th>@balanceSheetClass.TotalClosingBalanceLiability</th>
+        </tr>
+    }
+    <tr>
+        <th>БАЛАНС</th>
+        <th>@Model.TotalOpeningBalanceAsset</th>
+        <th>@Model.TotalOpeningBalanceLiability</th>
+        <th>@Model.TotalTurnoverDebit</th>
+        <th>@Model.TotalTurnoverCredit</th>
+        <th>@Model.TotalClosingBalanceAsset</th>
+        <th>@Model.TotalClosingBalanceLiability</th>
+    </tr>
+    </tbody>
+</table>
