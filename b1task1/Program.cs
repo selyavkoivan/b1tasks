@@ -1,6 +1,6 @@
 ﻿using b1.Service;
-using b1.Service.Generator;
 
+// генерируем строки
 FileService.GenerateFiles();
 
 const string menu = """
@@ -14,22 +14,29 @@ const string menu = """
 
 while (true)
 {
-    Console.WriteLine(menu);
-    switch (Console.ReadLine())
+    try
     {
-        case "1": 
-            FileService.ToOneFile(Comparer.CompareTo);
-            break;
-        case "2": 
-            Console.WriteLine("Enter string for filtering");
-            FileService.ToOneFile(Comparer.CompareTo, Console.ReadLine(), true);
-            break;
-        case "3": 
-            DatabaseService.ToDatabase();
-            break;
-        case "4":
-            DatabaseService.CalculateValues();
-            break;
-        case "0": return;
+        Console.Write(menu);
+        switch (Console.ReadLine())
+        {
+            case "1":
+                FileService.ToOneFile(Comparer.Contains);
+                break;
+            case "2":
+                Console.WriteLine("Enter string for filtering");
+                FileService.ToOneFile(Comparer.Contains, Console.ReadLine()!, true);
+                break;
+            case "3":
+                DatabaseService.ToDatabase();
+                break;
+            case "4":
+                DatabaseService.CalculateValues();
+                break;
+            case "0": return;
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
     }
 }

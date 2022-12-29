@@ -14,14 +14,9 @@ public class BalanceLineBlock
     public double TotalClosingBalanceAsset => BalanceLines.Select(l => l.ClosingBalanceAsset).Sum();
     public double TotalClosingBalanceLiability => BalanceLines.Select(l => l.ClosingBalanceLiability).Sum();
 
-    public BalanceLineBlock()
-    {
-        
-    }
-    
-    public BalanceLineBlock(int balanceLineBlockNumber)
-    {
-        BalanceLineBlockNumber = balanceLineBlockNumber;
-        BalanceLines = new();
-    }
+    public override string ToString() =>
+        $"""
+        {string.Join('\n', BalanceLines.Select(b => b.ToString()))}
+        {BalanceLineBlockNumber,-10} | {TotalOpeningBalanceAsset,-20:F2} | {TotalOpeningBalanceLiability,-20:F2} | {TotalTurnoverDebit,-20:F2} | {TotalTurnoverCredit,-20:F2} | {TotalClosingBalanceAsset,-20:F2} | {TotalClosingBalanceLiability,-20:F2} 
+        """;
 }

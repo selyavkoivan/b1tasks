@@ -1,24 +1,27 @@
 ﻿@{
     Layout = "_Layout";
-}    
+}
 
 @model b1task2.Models.Balance.BalanceFile
-
-<table>
+<div class="text-center">
+    <h4>Оборотная ведомость по балансовым счетам</h4>
+    <h4>@Model.Period</h4>
+</div>
+<table class="table m-auto">
     <thead>
     <tr>
-        <th rowspan="2">Б/сч</th>
-        <th colspan="2">ВХОДЯЩЕЕ САЛЬДО</th>
-        <th colspan="2">ОБОРОТЫ</th>
-        <th colspan="2">ИСХОДЯЩЕЕ САЛЬДО</th>
+        <th class="header" scope="col" rowspan="2">Б/сч</th>
+        <th class="header" scope="col" colspan="2">ВХОДЯЩЕЕ САЛЬДО</th>
+        <th scope="col" colspan="2">ОБОРОТЫ</th>
+        <th scope="col" colspan="2">ИСХОДЯЩЕЕ САЛЬДО</th>
     </tr>
     <tr>
-        <th>Актив</th>
-        <th>Актив</th>
-        <th>Дебет</th>
-        <th>Кредит</th>
-        <th>Актив</th>
-        <th>Актив</th>
+        <th class="header" scope="col">Актив</th>
+        <th class="header" scope="col">Актив</th>
+        <th class="header" scope="col">Дебет</th>
+        <th class="header" scope="col">Кредит</th>
+        <th class="header" scope="col">Актив</th>
+        <th class="header" scope="col">Актив</th>
     </tr>
     </thead>
     <tbody>
@@ -33,42 +36,46 @@
             {
                 <tr>
                     <td>@balanceLine.BalanceLineNumber</td>
-                    <td>@balanceLine.OpeningBalanceAsset</td>
-                    <td>@balanceLine.OpeningBalanceLiability</td>
-                    <td>@balanceLine.TurnoverDebit</td>
-                    <td>@balanceLine.TurnoverCredit</td>
-                    <td>@balanceLine.ClosingBalanceAsset</td>
-                    <td>@balanceLine.ClosingBalanceLiability</td>
+                    <td>@balanceLine.OpeningBalanceAsset.ToString("F2")</td>
+                    <td>@balanceLine.OpeningBalanceLiability.ToString("F2")</td>
+                    <td>@balanceLine.TurnoverDebit.ToString("F2")</td>
+                    <td>@balanceLine.TurnoverCredit.ToString("F2")</td>
+                    <td>@balanceLine.ClosingBalanceAsset.ToString("F2")</td>
+                    <td>@balanceLine.ClosingBalanceLiability.ToString("F2")</td>
                 </tr>
             }
             <tr>
-                <th>@balanceLineBlock.BalanceLineBlockNumber</th>
-                <th>@balanceLineBlock.TotalOpeningBalanceAsset</th>
-                <th>@balanceLineBlock.TotalOpeningBalanceLiability</th>
-                <th>@balanceLineBlock.TotalTurnoverDebit</th>
-                <th>@balanceLineBlock.TotalTurnoverCredit</th>
-                <th>@balanceLineBlock.TotalClosingBalanceAsset</th>
-                <th>@balanceLineBlock.TotalClosingBalanceLiability</th>
+                <th scope="row">@balanceLineBlock.BalanceLineBlockNumber</th>
+                <th>@balanceLineBlock.TotalOpeningBalanceAsset.ToString("F2")</th>
+                <th>@balanceLineBlock.TotalOpeningBalanceLiability.ToString("F2")</th>
+                <th>@balanceLineBlock.TotalTurnoverDebit.ToString("F2")</th>
+                <th>@balanceLineBlock.TotalTurnoverCredit.ToString("F2")</th>
+                <th>@balanceLineBlock.TotalClosingBalanceAsset.ToString("F2")</th>
+                <th>@balanceLineBlock.TotalClosingBalanceLiability.ToString("F2")</th>
             </tr>
         }
         <tr>
-            <th>ПО КЛАССУ</th>
-            <th>@balanceSheetClass.TotalOpeningBalanceAsset</th>
-            <th>@balanceSheetClass.TotalOpeningBalanceLiability</th>
-            <th>@balanceSheetClass.TotalTurnoverDebit</th>
-            <th>@balanceSheetClass.TotalTurnoverCredit</th>
-            <th>@balanceSheetClass.TotalClosingBalanceAsset</th>
-            <th>@balanceSheetClass.TotalClosingBalanceLiability</th>
+            <th scope="row">ПО КЛАССУ</th>
+            <th>@balanceSheetClass.TotalOpeningBalanceAsset.ToString("F2")</th>
+            <th>@balanceSheetClass.TotalOpeningBalanceLiability.ToString("F2")</th>
+            <th>@balanceSheetClass.TotalTurnoverDebit.ToString("F2")</th>
+            <th>@balanceSheetClass.TotalTurnoverCredit.ToString("F2")</th>
+            <th>@balanceSheetClass.TotalClosingBalanceAsset.ToString("F2")</th>
+            <th>@balanceSheetClass.TotalClosingBalanceLiability.ToString("F2")</th>
         </tr>
     }
     <tr>
-        <th>БАЛАНС</th>
-        <th>@Model.TotalOpeningBalanceAsset</th>
-        <th>@Model.TotalOpeningBalanceLiability</th>
-        <th>@Model.TotalTurnoverDebit</th>
-        <th>@Model.TotalTurnoverCredit</th>
-        <th>@Model.TotalClosingBalanceAsset</th>
-        <th>@Model.TotalClosingBalanceLiability</th>
+        <th scope="row">БАЛАНС</th>
+        <th>@Model.TotalOpeningBalanceAsset.ToString("F2")</th>
+        <th>@Model.TotalOpeningBalanceLiability.ToString("F2")</th>
+        <th>@Model.TotalTurnoverDebit.ToString("F2")</th>
+        <th>@Model.TotalTurnoverCredit.ToString("F2")</th>
+        <th>@Model.TotalClosingBalanceAsset.ToString("F2")</th>
+        <th>@Model.TotalClosingBalanceLiability.ToString("F2")</th>
     </tr>
     </tbody>
 </table>
+<form method="post" asp-action="ToFile" asp-controller="Home">
+    <input type="hidden" value="@Model.BalanceFileId" name="id"/>
+    <button class="m-auto btn btn-outline-primary">to .txt</button>
+</form>
